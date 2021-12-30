@@ -49,10 +49,10 @@ int main() {
 
         //save positions of bodies
         //ofileSun << time << "\t" ;
-        ofileSun << Sun.position.x() << "\t" << Sun.position.y() << "\t" << Sun.position.z() << endl;
+        ofileSun << Sun.position;
 
         //ofileEarth << time << "\t\t" ;
-        ofileEarth << Earth.position.x() << "\t" << Earth.position.y() << "\t" << Earth.position.z() << endl;
+        ofileEarth << Earth.position;
 
         //Move bodies
         sim_step(ForceSun, Sun, dt);

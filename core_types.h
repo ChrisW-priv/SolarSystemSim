@@ -31,7 +31,7 @@ struct Vector3{
 
     //standard output for a vector type: prfloat type and x,y,z values
     friend std::ostream& operator << (std::ostream& stream, const Vector3& vector){
-        stream << "Vector3:" << " x: " << vector.value[0] << " y: " << vector.value[1] << " z: " << vector.value[2] << "\n";
+        stream << vector.value[0] << "\t" << vector.value[1] << "\t" << vector.value[2] << "\n";
         return stream;
     }
 };
