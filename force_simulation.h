@@ -16,15 +16,7 @@ Vector3 gravitational_force(int Gravitational_const, CelestialBody& body1, Celes
 
     float force = -Gravitational_const*(mass1*mass2/distance2);
 
-    float dx = Vector3::diff_x(pos1, pos2);
-    float dy = Vector3::diff_y(pos1, pos2);
-    float dz = Vector3::diff_z(pos1, pos2);
-
-    float Fx = force * dx / distance;
-    float Fy = force * dy / distance;
-    float Fz = force * dz / distance;
-
-    return {Fx, Fy, Fz};
+    return (pos2-pos1) * (force/distance);
 }
 
 
