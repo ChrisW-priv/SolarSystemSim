@@ -28,7 +28,7 @@ int main() {
     const float G = 6.6743e-8; // [G] = [km^3*GT^(-1)*s^(-2)]
 
     //Create variables for time control
-    int dt = 24*60*60;
+    int dt = 3600;
     int period = 365*24*60*60;
     int time = 0;
 
