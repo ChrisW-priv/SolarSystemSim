@@ -5,9 +5,10 @@
 #include <cmath>
 
 
-Vector3 gravitational_force(int Gravitational_const, CelestialBody& body1, CelestialBody& body2){
-    int mass1 = body1.mass;
-    int mass2 = body2.mass;
+Vector3 gravitational_force(float Gravitational_const, CelestialBody& body1, CelestialBody& body2){
+    //Gravitational_const must be float type
+    float mass1 = body1.mass; //mass must be float type
+    float mass2 = body2.mass;
     Vector3 pos1 = body1.position;
     Vector3 pos2 = body2.position;
 

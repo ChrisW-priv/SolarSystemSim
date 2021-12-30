@@ -15,6 +15,7 @@ struct Vector3{
     Vector3 operator + (const Vector3& other);
     Vector3 operator - (const Vector3& other);
     Vector3 operator * (float a);
+    Vector3 &operator = (const Vector3& other);
 
     Vector3 power2();
     static float element_sum(Vector3& vector);
@@ -30,7 +31,7 @@ struct Vector3{
 
     //standard output for a vector type: prfloat type and x,y,z values
     friend std::ostream& operator << (std::ostream& stream, const Vector3& vector){
-        stream << "Vector3:" << " x: " << vector.value[0] << " y: " << vector.value[1] << " z: " << vector.value[2] << "\n";
+        stream << vector.value[0] << "\t" << vector.value[1] << "\t" << vector.value[2] << "\n";
         return stream;
     }
 };
@@ -38,11 +39,11 @@ struct Vector3{
 
 struct CelestialBody{
     char name[32];
-    int mass;
+    float mass; //mass must be float type
     Vector3 position;
     Vector3 velocity;
 
-    CelestialBody(const std::string& name, int mass, Vector3 position, Vector3 velocity) : name(), mass(){
+    CelestialBody(const std::string& name, float mass, Vector3 position, Vector3 velocity) : name(), mass(){
         name.copy(this->name, 32);
         this->mass = mass;
         this->position = position;
