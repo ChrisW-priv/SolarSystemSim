@@ -41,6 +41,16 @@ Vector3 Vector3::operator*(float a) {
     return new_vector;
 }
 
+Vector3 &Vector3::operator = (const Vector3& other){
+    if(&other==this){ return *this; }
+    else{
+        value[0] = other.value[0];
+        value[1] = other.value[1];
+        value[2] = other.value[2];
+        return *this;
+    }
+}
+
 float Vector3::x() {
     return this->value[0];
 }
@@ -75,15 +85,15 @@ float Vector3::distance2(Vector3& vector1, Vector3& vector2) {
 }
 
 float Vector3::diff_x(Vector3 &v1, Vector3 &v2) {
-    return v1.x() - v2.x();
+    return v2.x() - v1.x();
 }
 
 float Vector3::diff_y(Vector3 &v1, Vector3 &v2) {
-    return v1.y() - v2.y();
+    return v2.y() - v1.y();
 }
 
 float Vector3::diff_z(Vector3 &v1, Vector3 &v2) {
-    return v1.z() - v2.z();
+    return v2.z() - v1.z();
 }
 
 
