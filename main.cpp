@@ -28,9 +28,9 @@ int main() {
     const float G = 6.6743e-8; // [G] = [km^3*GT^(-1)*s^(-2)]
 
     //Create variables for time control
-    float dt = 24*60*60;
-    float period = 365*24*60*60;
-    float time = 0;
+    int dt = 24*60*60;
+    int period = 365*24*60*60;
+    int time = 0;
 
     //Open files to save data
     ofstream ofileSun;
