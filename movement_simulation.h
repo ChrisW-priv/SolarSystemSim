@@ -6,22 +6,18 @@
 #include <cmath>
 
 Vector3 acceleration(Vector3& gravitational_force, CelestialBody& body){
-	float a_x = gravitational_force.x() / body.mass;
-	float a_y = gravitational_force.y() / body.mass;
-	float a_z = gravitational_force.z() / body.mass;
-
-	return {a_x, a_y, a_z};
+    return gravitational_force* (1/body.mass);
 	//returns acceleration of a celestial body
 }
 
 Vector3 new_velocity(Vector3& acceleration, CelestialBody& body, float dt)
 {
-	return (body.velocity + acceleration) * dt;
+    return (body.velocity + acceleration) * dt;
 }
 
-Vector3 new_posiotion(Vector3& velocity, CelestialBody& body, float dt)
+Vector3 new_posiotion(Vector3& acceleration, CelestialBody& body, float dt)
 {
-    return (body.position + velocity) * dt;
+    return body.position + body.velocity * dt + acceleration * 0.5 * pow(dt, 2);
 }
 
 void sim_step(Vector3& gravitational_force, CelestialBody& body, float dt)
@@ -32,7 +28,7 @@ void sim_step(Vector3& gravitational_force, CelestialBody& body, float dt)
 
     a = acceleration(gravitational_force, body);
     v = new_velocity(a, body, dt);
-    pos = new_posiotion(v, body, dt);
+    pos = new_posiotion(a, body, dt);
 
     body.velocity = v;
     body.position = pos;
