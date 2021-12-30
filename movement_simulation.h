@@ -12,7 +12,7 @@ Vector3 acceleration(Vector3& gravitational_force, CelestialBody& body){
 
 Vector3 new_velocity(Vector3& acceleration, CelestialBody& body, float dt)
 {
-    return (body.velocity + acceleration) * dt;
+    return body.velocity + acceleration * dt;
 }
 
 Vector3 new_posiotion(Vector3& acceleration, CelestialBody& body, float dt)
