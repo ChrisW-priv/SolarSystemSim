@@ -15,7 +15,7 @@ Vector3 new_velocity(Vector3& acceleration, CelestialBody& body, float dt)
     return body.velocity + acceleration * dt;
 }
 
-Vector3 new_posiotion(Vector3& acceleration, CelestialBody& body, float dt)
+Vector3 new_position(Vector3& acceleration, CelestialBody& body, float dt)
 {
     return body.position + body.velocity * dt + acceleration * 0.5 * pow(dt, 2);
 }
@@ -28,7 +28,7 @@ void sim_step(Vector3& gravitational_force, CelestialBody& body, float dt)
 
     a = acceleration(gravitational_force, body);
     v = new_velocity(a, body, dt);
-    pos = new_posiotion(a, body, dt);
+    pos = new_position(a, body, dt);
 
     body.velocity = v;
     body.position = pos;
