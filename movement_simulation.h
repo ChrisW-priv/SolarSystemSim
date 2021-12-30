@@ -14,25 +14,17 @@ Vector3 acceleration(Vector3& gravitational_force, CelestialBody& body){
 	//returns acceleration of a celestial body
 }
 
-Vector3 new_velocity(Vector3& acceleration, CelestialBody& body, int dt)
+Vector3 new_velocity(Vector3& acceleration, CelestialBody& body, float dt)
 {
-	float v_x = body.velocity.x() + acceleration.x() * dt;
-	float v_y = body.velocity.y() + acceleration.y() * dt;
-	float v_z = body.velocity.z() + acceleration.z() * dt;
-
-	return {v_x, v_y, v_z};
+	return (body.velocity + acceleration) * dt;
 }
 
-Vector3 new_posiotion(Vector3& velocity, CelestialBody& body, int dt)
+Vector3 new_posiotion(Vector3& velocity, CelestialBody& body, float dt)
 {
-	float x = body.position.x() + velocity.x() * dt;
-	float y = body.position.y() + velocity.y() * dt;
-	float z = body.position.z() + velocity.z() * dt;
-
-	return {x,y,z};
+    return (body.position + velocity) * dt;
 }
 
-void sim_step(Vector3& gravitational_force, CelestialBody& body, int dt)
+void sim_step(Vector3& gravitational_force, CelestialBody& body, float dt)
 {
 	Vector3 a; //acceleration of a body
     Vector3 v; //velocity of a body
