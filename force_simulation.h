@@ -5,6 +5,11 @@
 #include <cmath>
 
 
+/// Calculates gravitational force between two bodies
+/// Arguments:
+/// float Gravitational_const: Gravitational constant
+/// CelestialBody& body1: body which gravitational force we are calculating
+/// CelestialBody& body2: body which gravitational force we are calculating
 Vector3 gravitational_force(float Gravitational_const, CelestialBody& body1, CelestialBody& body2){
     //Gravitational_const must be float type
     float mass1 = body1.mass; //mass must be float type

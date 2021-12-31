@@ -6,7 +6,7 @@
 
 using namespace std;
 
-//A function showing infos about celestial bodies
+/// Function showing infos about celestial bodies
 void CelestialBodyInfo(CelestialBody &body)
 {
     cout << "Name: " << body.name << endl;
@@ -21,8 +21,9 @@ int main() {
     CelestialBody Sun("Sun", 1.98855e+18, {0,0,0}, {0,0,0});
     CelestialBody Earth("Earth", 5.97219e+12, {1.52098233e+8,0,0}, {0,29.290,0});
 
-    CelestialBodyInfo(Sun);
-    CelestialBodyInfo(Earth);
+    // print info about bodies in sim
+    cout<<Sun;
+    cout<<Earth;
 
     //Create gravitational constant
     const float G = 6.6743e-8; // [G] = [km^3*GT^(-1)*s^(-2)]
@@ -42,17 +43,14 @@ int main() {
     //Start simulation
     do
     {
-        //Calculating gravitational force
+        //save positions of bodies to file
+        ofileSun << Sun.position;
+        ofileEarth << Earth.position;
+
+        //Calculate gravitational force between bodies
         Vector3 ForceEarth = gravitational_force(G, Sun, Earth);
         Vector3 ForceSun;
         ForceSun = ForceEarth * (-1);
-
-        //save positions of bodies
-        //ofileSun << time << "\t" ;
-        ofileSun << Sun.position;
-
-        //ofileEarth << time << "\t\t" ;
-        ofileEarth << Earth.position;
 
         //Move bodies
         sim_step(ForceSun, Sun, dt);
@@ -61,9 +59,7 @@ int main() {
         //Increment time
         time+=dt;
     }
-    while(time <= period);
-
-    //Stop simulation
+    while(time <= period); //Stop simulation
 
     //Close files
     ofileSun.close();

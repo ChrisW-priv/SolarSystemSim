@@ -51,18 +51,6 @@ Vector3 &Vector3::operator = (const Vector3& other){
     }
 }
 
-float Vector3::x() {
-    return this->value[0];
-}
-
-float Vector3::y() {
-    return this->value[1];
-}
-
-float Vector3::z() {
-    return this->value[2];
-}
-
 Vector3 Vector3::power2() {
     Vector3 new_vector;
     for (int i = 0; i < 3; ++i) {
@@ -82,6 +70,18 @@ float Vector3::element_sum(Vector3& vector) {
 float Vector3::distance2(Vector3& vector1, Vector3& vector2) {
     Vector3 temp = (vector2 - vector1).power2();
     return Vector3::element_sum( temp );
+}
+
+float Vector3::x() {
+    return this->value[0];
+}
+
+float Vector3::y() {
+    return this->value[1];
+}
+
+float Vector3::z() {
+    return this->value[2];
 }
 
 float Vector3::diff_x(Vector3 &v1, Vector3 &v2) {

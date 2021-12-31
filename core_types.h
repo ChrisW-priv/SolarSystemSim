@@ -29,7 +29,7 @@ struct Vector3{
     static float diff_y(Vector3& v1, Vector3& v2);
     static float diff_z(Vector3& v1, Vector3& v2);
 
-    //standard output for a vector type: prfloat type and x,y,z values
+    /// standard output for a vector type info: print x,y,z values separated by "\t" sign
     friend std::ostream& operator << (std::ostream& stream, const Vector3& vector){
         stream << vector.value[0] << "\t" << vector.value[1] << "\t" << vector.value[2] << "\n";
         return stream;
@@ -48,6 +48,15 @@ struct CelestialBody{
         this->mass = mass;
         this->position = position;
         this->velocity = velocity;
+    }
+
+    /// standard output for a vector type info: print x,y,z values separated by "\t" sign
+    friend std::ostream& operator << (std::ostream& stream, const CelestialBody& body){
+        stream << "Name: " << body.name << "\n";
+        stream << "Mass: " << body.mass << " GT" << "\n";
+        stream << "Position [km]: " << body.position; //new line included in Vector3 std output
+        stream << "Velocity [km/s]: " << body.velocity << "\n";
+        return stream;
     }
 };
 
