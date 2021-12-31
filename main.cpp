@@ -6,14 +6,6 @@
 
 using namespace std;
 
-/// Function showing infos about celestial bodies
-void CelestialBodyInfo(CelestialBody &body)
-{
-    cout << "Name: " << body.name << endl;
-    cout << "Mass: " << body.mass << " GT" << endl;
-    cout << "Position [km]: " << body.position;
-    cout << "Velocity [km/s]: " << body.velocity << endl;
-}
 
 int main() {
 
