@@ -13,6 +13,14 @@ int main() {
     CelestialBody Sun("Sun", 1.98855e+18, {0,0,0}, {0,0,0});
     CelestialBody Earth("Earth", 5.97219e+12, {1.52098233e+8,0,0}, {0,29.290,0});
 
+    //array of bodies
+    CelestialBody bodies[] {Sun, Earth};
+
+    int n_bodies = sizeof(bodies)/ sizeof(CelestialBody);
+
+    //array of vector gravitational forces acting on bodies
+    Vector3 grav_forces[n_bodies];
+
     // print info about bodies in sim
     cout<<Sun;
     cout<<Earth;
@@ -32,6 +40,9 @@ int main() {
     ofstream ofileEarth;
     ofileEarth.open("Earth.txt");
 
+    //loop variables for the calculations
+    int i,j,k;
+
     //Start simulation
     do
     {
@@ -40,13 +51,18 @@ int main() {
         ofileEarth << Earth.position;
 
         //Calculate gravitational force between bodies
-        Vector3 ForceEarth = gravitational_force(G, Sun, Earth);
-        Vector3 ForceSun;
-        ForceSun = ForceEarth * (-1);
+        for (i = 0; i < n_bodies-1; ++i) {
+            for (j = i+1; j < n_bodies; ++j) {
+                Vector3 Force = gravitational_force(G, bodies[i], bodies[j]);
+                grav_forces[i] -= Force;
+                grav_forces[j] += Force;
+            }
+        }
 
         //Move bodies
-        sim_step(ForceSun, Sun, dt);
-        sim_step(ForceEarth, Earth, dt);
+        for (k = 0; k < n_bodies; ++k) {
+            sim_step(grav_forces[k], bodies[k], dt);
+        }
 
         //Increment time
         time+=dt;
