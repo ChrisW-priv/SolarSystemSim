@@ -25,12 +25,24 @@ Vector3 Vector3::operator+(const Vector3 &other) {
     return new_vector;
 }
 
+void Vector3::operator+=(const Vector3 &other) {
+    for (int i = 0; i < 3; ++i) {
+        this->value[i] = this->value[i] + other.value[i];
+    }
+}
+
 Vector3 Vector3::operator-(const Vector3 &other) {
     Vector3 new_vector;
     for (int i = 0; i < 3; ++i) {
         new_vector.value[i] = this->value[i] - other.value[i];
     }
     return new_vector;
+}
+
+void Vector3::operator-=(const Vector3 &other) {
+    for (int i = 0; i < 3; ++i) {
+        this->value[i] = this->value[i] - other.value[i];
+    }
 }
 
 Vector3 Vector3::operator*(float a) {
@@ -95,8 +107,3 @@ float Vector3::diff_y(Vector3 &v1, Vector3 &v2) {
 float Vector3::diff_z(Vector3 &v1, Vector3 &v2) {
     return v2.z() - v1.z();
 }
-
-
-
-
-
