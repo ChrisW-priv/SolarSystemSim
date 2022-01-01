@@ -23,9 +23,6 @@ int main() {
         cout<<body;
     }
 
-    //Create gravitational constant
-    const float G = 6.6743e-8; // [G] = [km^3*GT^(-1)*s^(-2)]
-
     //Create variables for time control
     int dt = 24 * 60 * 60; //dt = 1 day
     int period = 365 * 24 * 60 * 60; // period = 1 year
@@ -55,7 +52,7 @@ int main() {
         //Calculate gravitational force between bodies
         for (i = 0; i < n_bodies - 1; ++i){
             for (j = i + 1; j < n_bodies; ++j){
-                Vector3 Force = gravitational_force(G, bodies[i], bodies[j]);
+                Vector3 Force = gravitational_force(bodies[i], bodies[j]);
                 grav_forces[i] -= Force;
                 grav_forces[j] += Force;
             }
