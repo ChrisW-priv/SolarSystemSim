@@ -6,6 +6,9 @@
 
 using namespace std;
 
+//change to 1 if you want a fast calculation using only sun as a body with gravitational significance
+//change to 0 if you want to calculate the force between all bodies in the system
+#define QUICK 0
 
 int main() {
 
@@ -50,13 +53,22 @@ int main() {
         }
 
         //Calculate gravitational force between bodies
-        for (i = 0; i < n_bodies - 1; ++i){
-            for (j = i + 1; j < n_bodies; ++j){
-                Vector3 Force = gravitational_force(bodies[i], bodies[j]);
-                grav_forces[i] -= Force;
-                grav_forces[j] += Force;
+        #if QUICK
+            //schema for simulation just counting the sun as a body that is relevant for the system
+            for (i=1; i<n_bodies; i++){
+                Vector3 Force = gravitational_force(bodies[0], bodies[i]);
+                grav_forces[0] -= Force;
+                grav_forces[i] += Force;
             }
-        }
+        #else
+            for (i = 0; i < n_bodies - 1; ++i) {
+                for (j = i + 1; j < n_bodies; ++j) {
+                    Vector3 Force = gravitational_force(bodies[i], bodies[j]);
+                    grav_forces[i] -= Force;
+                    grav_forces[j] += Force;
+                }
+            }
+        #endif
 
         //Move bodies
         for (body_index = 0; body_index < n_bodies; ++body_index){
