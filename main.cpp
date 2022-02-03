@@ -13,13 +13,13 @@ using namespace std;
 int main() {
 
     //Create new celestial bodies
-    CelestialBody Sun("Sun", 1.98855e+18, {0, 0, 0}, {0, 0, 0});
-    CelestialBody Earth("Earth", 5.97219e+12, {1.52098233e+8, 0, 0}, {0, 29.290, 0});
+    CelestialBody<float> Sun = CelestialBody<float>("Sun", 1.98855e+18, {0, 0, 0}, {0, 0, 0});
+    CelestialBody<float> Earth = CelestialBody<float>("Earth", 5.97219e+12, {1.52098233e+8, 0, 0}, {0, 29.290, 0});
 
     //array of bodies
-    CelestialBody bodies[]{Sun, Earth};
+    CelestialBody<float> bodies[]{Sun, Earth};
 
-    int n_bodies = sizeof(bodies) / sizeof(CelestialBody);
+    int n_bodies = sizeof(bodies) / sizeof(CelestialBody<float>);
 
     // print info about bodies in sim
     for (CelestialBody body: bodies) {
@@ -42,8 +42,8 @@ int main() {
 
     //loop variables for the calculations
     int i, j;
-    Vector3 grav_forces[n_bodies]; // Array of Vector3 forces acting on body in simulation
-    Vector3 VectorZeros[n_bodies]; // Vector array of zeros used to reset the grav_force array after each loop
+    Vector3<float> grav_forces[n_bodies]; // Array of Vector3 forces acting on body in simulation
+    Vector3<float> VectorZeros[n_bodies]; // Vector array of zeros used to reset the grav_force array after each loop
 
     //Start simulation
     do {
@@ -63,7 +63,7 @@ int main() {
         #else
             for (i = 0; i < n_bodies - 1; ++i) {
                 for (j = i + 1; j < n_bodies; ++j) {
-                    Vector3 Force = gravitational_force(bodies[i], bodies[j]);
+                    Vector3<float> Force = gravitational_force<float>(bodies[i], bodies[j]);
                     grav_forces[i] -= Force;
                     grav_forces[j] += Force;
                 }
@@ -72,7 +72,7 @@ int main() {
 
         //Move bodies
         for (body_index = 0; body_index < n_bodies; ++body_index){
-            sim_step(grav_forces[body_index], bodies[body_index], dt);
+            sim_step<float>(grav_forces[body_index], bodies[body_index], dt);
         }
 
         //reset gravitational force array to zeros

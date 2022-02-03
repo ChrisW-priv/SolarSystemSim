@@ -10,9 +10,10 @@
 /// Vector3 gravitational_force: force acting on a body
 /// CelestialBody body: object that we change properties of
 /// float dt: time step of the simulation
-void sim_step(Vector3& gravitational_force, CelestialBody& body, float dt)
+template<typename T>
+void sim_step(Vector3<T>& gravitational_force, CelestialBody<T>& body, float dt)
 {
-	Vector3 acceleration = gravitational_force * (1/body.mass); //acceleration of a body
+	Vector3<T> acceleration = gravitational_force * (1/body.mass); //acceleration of a body
 
     body.velocity += acceleration * dt; //velocity of a body
     body.position += body.velocity * dt + acceleration * ((dt * dt) / 2); //position of a body

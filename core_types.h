@@ -2,34 +2,95 @@
 #define SOLARSYSTEMSIM_CORE_TYPES_H
 
 #include <iostream>
+#include <cmath>
 
 
+template<typename T>
 struct Vector3{
     //array of floats holding the data
-    float value[3]{};
+    T value[3]{};
 
-    Vector3();
-    explicit Vector3(const float arr[]);
-    Vector3(float x, float y, float z);
+    Vector3() : value() {
+        for (T & i : value) { i = 0; }
+    }
+    explicit Vector3(const T arr[]) : value() {
+        for (int i = 0; i < 3; ++i) {
+            value[i] = arr[i];
+        }
+    }
 
-    Vector3 operator + (const Vector3& other);
-    void operator += (const Vector3& other);
-    Vector3 operator - (const Vector3& other);
-    void operator -= (const Vector3& other);
-    Vector3 operator * (float a);
-    Vector3 &operator = (const Vector3& other);
+    Vector3(T x, T y, T z) : value(){
+        value[0] = x;
+        value[1] = y;
+        value[2] = z;
+    }
 
-    Vector3 power2();
-    static float element_sum(Vector3& vector);
-    static float distance2(Vector3& v1, Vector3& v2);
+    Vector3<T> operator+(const Vector3<T> &other) {
+        Vector3<T> new_vector;
+        for (int i = 0; i < 3; ++i) {
+            new_vector.value[i] = this->value[i] + other.value[i];
+        }
+        return new_vector;
+    }
 
-    float x();
-    float y();
-    float z();
+    void operator += (const Vector3& other) {
+        for (int i = 0; i < 3; ++i) {
+            this->value[i] = this->value[i] + other.value[i];
+        }
+    }
 
-    static float diff_x(Vector3& v1, Vector3& v2);
-    static float diff_y(Vector3& v1, Vector3& v2);
-    static float diff_z(Vector3& v1, Vector3& v2);
+    Vector3<T> operator - (const Vector3& other){
+        Vector3 new_vector;
+        for (int i = 0; i < 3; ++i) {
+            new_vector.value[i] = this->value[i] - other.value[i];
+        }
+        return new_vector;
+    }
+
+    void operator -= (const Vector3& other){
+        for (int i = 0; i < 3; ++i) {
+            this->value[i] = this->value[i] - other.value[i];
+        }
+    }
+
+    Vector3<T> operator * (T a){
+        Vector3<T> new_vector;
+        for (int i = 0; i < 3; ++i) {
+            new_vector.value[i] = this->value[i] * a;
+        }
+        return new_vector;
+    }
+
+    Vector3<T> &operator = (const Vector3& other){
+        if(&other==this){ return *this; }
+        else{
+            value[0] = other.value[0];
+            value[1] = other.value[1];
+            value[2] = other.value[2];
+            return *this;
+        }
+    };
+
+    Vector3<T> power2() {
+        Vector3<T> new_vector;
+        for (int i = 0; i < 3; ++i) {
+            new_vector.value[i] = pow(this->value[i], 2);
+        }
+        return new_vector;
+    };
+
+    static T element_sum(Vector3<T>& vector) {
+        T sum=0;
+        for (T i : vector.value) {
+            sum += i;
+        }
+        return sum;
+    }
+
+    static T distance2(Vector3<T>& vector1, Vector3<T>& vector2) {
+        Vector3 temp = (vector2 - vector1).power2();
+        return Vector3<T>::element_sum( temp );
+    }
 
     /// standard output for a vector type info: print x,y,z values separated by "\t" sign
     friend std::ostream& operator << (std::ostream& stream, const Vector3& vector){
@@ -39,13 +100,14 @@ struct Vector3{
 };
 
 
+template<typename T>
 struct CelestialBody{
     char name[32];
     float mass; //mass must be float type
-    Vector3 position;
-    Vector3 velocity;
+    Vector3<T> position;
+    Vector3<T> velocity;
 
-    CelestialBody(const std::string& name, float mass, Vector3 position, Vector3 velocity) : name(), mass(){
+    CelestialBody(const std::string& name, float mass, Vector3<T> position, Vector3<T> velocity) : name(), mass(){
         name.copy(this->name, 32);
         this->mass = mass;
         this->position = position;

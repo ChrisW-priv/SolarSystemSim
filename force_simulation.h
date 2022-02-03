@@ -12,17 +12,18 @@
 /// Arguments:
 /// CelestialBody& body1: body which gravitational force we are calculating
 /// CelestialBody& body2: body which gravitational force we are calculating
-Vector3 gravitational_force(CelestialBody& body1, CelestialBody& body2){
+template<typename T>
+Vector3<T> gravitational_force(CelestialBody<T>& body1, CelestialBody<T>& body2){
     //Gravitational_const must be float type
     float mass1 = body1.mass; //mass must be float type
     float mass2 = body2.mass;
-    Vector3 pos1 = body1.position;
-    Vector3 pos2 = body2.position;
+    Vector3<T> pos1 = body1.position;
+    Vector3<T> pos2 = body2.position;
 
-    float distance2 = Vector3::distance2(pos1, pos2);
-    float distance = sqrt(distance2);
+    T distance2 = Vector3<T>::distance2(pos1, pos2);
+    T distance = sqrt(distance2);
 
-    float force = -GRAVITATIONAL_CONSTANT*mass1*mass2/distance2;
+    T force = -GRAVITATIONAL_CONSTANT*mass1*mass2/distance2;
 
     return (pos2-pos1) * (force/distance);
 }
