@@ -58,7 +58,7 @@ int main() {
         #if QUICK
             //schema for simulation just counting the sun as a body that is relevant for the system
             for (i=1; i<n_bodies; i++){
-                Vector3 Force = gravitational_force(bodies[0], bodies[i]);
+                Vector3<precision_type> Force = gravitational_force(bodies[0], bodies[i]);
                 grav_forces[0] -= Force;
                 grav_forces[i] += Force;
             }
