@@ -55,9 +55,9 @@ int main() {
     }
 
     //Create variables for time control
-    int dt = 60; //dt = 1 minute
-    int period = 12 * 365 * 24 * 3600; // period = 12 year
-    int time = 0;
+    int dt = 30; //dt = 0.5 minute
+    long long int period = 7820928000; // period = 248 year
+    long long int time = 0;
 
     //array of files to save body positions to
     ofstream save_files[n_bodies];
@@ -79,7 +79,8 @@ int main() {
     //Start simulation
     do {
         //save positions of bodies to file
-        if((time%3600) == 0)
+        //saves every day
+        if((time%86400) == 0)
         {
             for (body_index = 0; body_index < n_bodies; ++body_index) {
                 save_files[body_index] << bodies[body_index].position;
