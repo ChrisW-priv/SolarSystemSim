@@ -76,7 +76,7 @@ int main() {
     //loop variables for the calculations
     int i, j;
     Vector3<precision_type> grav_forces[n_bodies]; // Array of Vector3 forces acting on body in simulation
-    Vector3<precision_type> VectorZeros[n_bodies]; // Vector array of zeros used to reset the grav_force array after each loop
+    Vector3<precision_type> VectorZero{0,0,0}; // Vector array of zeros used to reset the grav_force array after each loop
 
     clock_t req_time; //the value used to calculate the time the program requires to simulate the whole process
     req_time = clock(); //start the clock
@@ -117,7 +117,7 @@ int main() {
 
         //reset gravitational force array to zeros
         for (body_index = 0; body_index < n_bodies; body_index++){
-            grav_forces[body_index] = VectorZeros[body_index];
+            grav_forces[body_index] = VectorZero;
         }
 
         //Increment time
