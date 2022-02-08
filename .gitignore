@@ -1,0 +1,7 @@
+*.txt
+!input_data.txt
+program
+README.md
+First results/
+Second results/
+Horizons results/
