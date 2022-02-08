@@ -9,17 +9,22 @@ using namespace std;
 
 //change to 1 if you want a fast calculation using only sun as a body with gravitational significance
 //change to 0 if you want to calculate the force between all bodies in the system
-#define QUICK 0
+#define QUICK 1
 #define precision_type double
-//name of data input file
-string data = "input_data.txt";
+
 
 int main() {
+    //name of data input file
+    string data = "input_data.txt";
 
     //Open a file with data
     ifstream read_file;
     read_file.open(data);
 
+    if (!read_file) {
+        cout << "couldn't open file!\n";
+        exit(1);
+    }
     int n_bodies; //number of bodies
 
     read_file >> n_bodies; 
@@ -30,18 +35,18 @@ int main() {
     {
         string name; //stores the name of celestial body
         double mass; //stores mass of celestial body
-        precision_type coordinates[3]; //stores coordinates of celestial body
-        precision_type velocity[3]; //stores velocities of celestial body
+        precision_type coordinates[3]; //store coordinates of celestial body
+        precision_type velocities[3]; //store velocities of celestial body
 
         read_file >> name;
         read_file >> mass;
-        for(int j = 0; j < 3; j++)
-            read_file >> coordinates[j];
-        for(int j = 0; j < 3; j++)
-            read_file >> velocity[j];
+        for(double & coordinate : coordinates)
+            read_file >> coordinate;
+        for(double & velocity : velocities)
+            read_file >> velocity;
 
         Vector3<precision_type> Pos(coordinates); //position vector
-        Vector3<precision_type> Vel(velocity); //velocity vector
+        Vector3<precision_type> Vel(velocities); //velocity vector
 
         bodies[i] = CelestialBody<precision_type>(name, mass, Pos, Vel);
     }
@@ -56,8 +61,8 @@ int main() {
 
     //Create variables for time control
     int dt = 30; //dt = 0.5 minute
-    long long int period = 7820928000; // period = 248 year
-    long long int time = 0;
+    unsigned long long period = 7'820'928'000; // period = 248 years
+    unsigned long long time = 0;
 
     //array of files to save body positions to
     ofstream save_files[n_bodies];
@@ -80,7 +85,7 @@ int main() {
     do {
         //save positions of bodies to file
         //saves every day
-        if((time%86400) == 0)
+        if((time % (60*60*24)) == 0)
         {
             for (body_index = 0; body_index < n_bodies; ++body_index) {
                 save_files[body_index] << bodies[body_index].position;
