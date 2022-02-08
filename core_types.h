@@ -107,7 +107,7 @@ struct CelestialBody{
     Vector3<T> position;
     Vector3<T> velocity;
 
-    CelestialBody(const std::string& name, float mass, Vector3<T> position, Vector3<T> velocity) : name(), mass(){
+    CelestialBody(const std::string& name, double mass, Vector3<T> position, Vector3<T> velocity) : name(), mass(){
         name.copy(this->name, 32);
         this->mass = mass;
         this->position = position;
