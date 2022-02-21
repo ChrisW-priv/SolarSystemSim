@@ -7,12 +7,11 @@
 
 template<typename T>
 struct Vector3{
-    //array of floats holding the data
+    //array 3 values of type specified
     T value[3]{};
 
-    Vector3() : value() {
-        for (T & i : value) { i = 0; }
-    }
+    Vector3() = default;
+
     explicit Vector3(const T arr[]) : value() {
         for (int i = 0; i < 3; ++i) {
             value[i] = arr[i];
