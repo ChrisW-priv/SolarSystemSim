@@ -5,12 +5,17 @@
 #include <ctime>
 #include <fstream>
 
-using namespace std;
+using std::cout, std::endl, std::string, std::ifstream, std::ofstream;
 
 //change to 1 if you want a fast calculation using only sun as a body with gravitational significance
 //change to 0 if you want to calculate the force between all bodies in the system
 #define QUICK 1
+//precision type for calculations in a Vector type
 #define precision_type double
+//number of seconds in a day
+#define DAY 86'400
+//number of seconds in a year
+#define YEAR (DAY*365)
 
 
 int main() {
@@ -60,8 +65,8 @@ int main() {
     }
 
     //Create variables for time control
-    int dt = 30; //dt = 0.5 minute
-    unsigned long long period = 7'820'928'000; // period = 248 years
+    constexpr int dt = 30; //dt = 0.5 minute
+    constexpr unsigned long long period = YEAR; // period = 1 year
     unsigned long long time = 0;
 
     //array of files to save body positions to
@@ -85,7 +90,7 @@ int main() {
     do {
         //save positions of bodies to file
         //saves every day
-        if((time % (60*60*24)) == 0)
+        if((time % DAY) == 0)
         {
             for (body_index = 0; body_index < n_bodies; ++body_index) {
                 save_files[body_index] << bodies[body_index].position;
