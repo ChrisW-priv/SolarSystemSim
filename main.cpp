@@ -14,8 +14,8 @@ using std::cout, std::endl, std::string, std::ifstream, std::ofstream;
 #define precision_type double
 //number of seconds in a day
 #define DAY 86'400
-//number of seconds in a year
-#define YEAR (DAY*365)
+//number of seconds in a year (defined as a long long type)
+#define YEAR (DAY*365LL)
 
 
 int main() {
