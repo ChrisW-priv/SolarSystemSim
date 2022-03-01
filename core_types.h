@@ -10,21 +10,24 @@ struct Vector3{
     //array 3 values of type specified
     T value[3]{};
 
+    /// if no source provided - innit Vector3 to a zero vector
     Vector3() = default;
 
+    /// constructing from an array of elements
     explicit Vector3(const T arr[]) : value() {
         for (int i = 0; i < 3; ++i) {
             value[i] = arr[i];
         }
     }
 
+    /// constructor from 3 values provided
     Vector3(T x, T y, T z) : value(){
         value[0] = x;
         value[1] = y;
         value[2] = z;
     }
 
-    Vector3<T> operator+(const Vector3<T> &other) {
+    Vector3<T> operator + (const Vector3<T> &other) {
         Vector3<T> new_vector;
         for (int i = 0; i < 3; ++i) {
             new_vector.value[i] = this->value[i] + other.value[i];
@@ -70,14 +73,20 @@ struct Vector3{
         }
     };
 
-    Vector3<T> power2() {
-        Vector3<T> new_vector;
+    /// square Vector3 elements in place
+    static void square_elements(Vector3<T>& vector){
         for (int i = 0; i < 3; ++i) {
-            new_vector.value[i] = pow(this->value[i], 2);
+            vector.value[i] = pow(vector.value[i], 2);
         }
-        return new_vector;
+    }
+
+    /// returns new vector with each value squared
+    Vector3<T> power2() {
+        Vector3<T> new_vector = *this;
+        return Vector3<T>::square_elements(new_vector);
     };
 
+    /// sums all elements of the vector
     static T element_sum(Vector3<T>& vector) {
         T sum=0;
         for (T i : vector.value) {
@@ -86,8 +95,10 @@ struct Vector3{
         return sum;
     }
 
+    /// returns a square of distance between two points represented by Vector3
     static T distance2(Vector3<T>& vector1, Vector3<T>& vector2) {
-        Vector3 temp = (vector2 - vector1).power2();
+        Vector3<T> temp = vector1 - vector2;
+        Vector3<T>::square_elements(temp);
         return Vector3<T>::element_sum( temp );
     }
 
@@ -102,11 +113,11 @@ struct Vector3{
 template<typename T>
 struct CelestialBody{
     char name[32];
-    float mass; //mass must be float type
+    float mass;
     Vector3<T> position;
     Vector3<T> velocity;
 
-    CelestialBody(const std::string& name = "no_name", double mass = 0, Vector3<T> position = Vector3<T>(0,0,0), Vector3<T> velocity = Vector3<T>(0,0,0)) : name(), mass(){
+    explicit CelestialBody(const std::string& name = "no_name", double mass = 0, Vector3<T> position = Vector3<T>(0,0,0), Vector3<T> velocity = Vector3<T>(0,0,0)) : name(), mass(){
         name.copy(this->name, 32);
         this->mass = mass;
         this->position = position;
