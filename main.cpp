@@ -68,7 +68,7 @@ int main() {
 
     //Create variables for time control
     constexpr int dt = 30; //dt = 0.5 minute
-    constexpr unsigned long long period = YEAR*250; // period = 1 year
+    constexpr unsigned long long period = YEAR; // period = 1 year
     unsigned long long time = 0;
 
     //array of files to save body positions to
