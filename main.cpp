@@ -34,8 +34,10 @@ int main() {
 
     read_file >> n_bodies; 
 
-    //array of bodies
+    //array of bodies considered in simulation
     CelestialBody<precision_type> bodies[n_bodies];
+
+    //read body data from an input file
     for(int i = 0; i < n_bodies; i++)
     {
         string name; //stores the name of celestial body
@@ -66,7 +68,7 @@ int main() {
 
     //Create variables for time control
     constexpr int dt = 30; //dt = 0.5 minute
-    constexpr unsigned long long period = YEAR; // period = 1 year
+    constexpr unsigned long long period = YEAR*250; // period = 1 year
     unsigned long long time = 0;
 
     //array of files to save body positions to
@@ -80,8 +82,10 @@ int main() {
 
     //loop variables for the calculations
     int i, j;
-    Vector3<precision_type> grav_forces[n_bodies]; // Array of Vector3 forces acting on body in simulation
-    Vector3<precision_type> VectorZero{0,0,0}; // Vector array of zeros used to reset the grav_force array after each loop
+    // Array of Vector3 forces acting on body in simulation
+    Vector3<precision_type> grav_forces[n_bodies];
+    // Vector array of zeros used to reset the grav_force array after each loop
+    Vector3<precision_type> VectorZero{0,0,0};
 
     clock_t req_time; //the value used to calculate the time the program requires to simulate the whole process
     req_time = clock(); //start the clock
