@@ -13,7 +13,7 @@
 /// CelestialBody& body1: body which gravitational force we are calculating
 /// CelestialBody& body2: body which gravitational force we are calculating
 template<typename T>
-Vector3<T> gravitational_force(CelestialBody<T>& body1, CelestialBody<T>& body2){
+inline Vector3<T> gravitational_force(CelestialBody<T>& body1, CelestialBody<T>& body2){
     //Gravitational_const must be float type
     double mass1 = body1.mass; //mass must be float type
     double mass2 = body2.mass;

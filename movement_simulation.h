@@ -11,7 +11,7 @@
 /// CelestialBody body: object that we change properties of
 /// float dt: time step of the simulation
 template<typename T>
-void sim_step(Vector3<T>& gravitational_force, CelestialBody<T>& body, float dt)
+inline void sim_step(Vector3<T>& gravitational_force, CelestialBody<T>& body, float dt)
 {
     //acceleration of a body
     Vector3<T> acceleration_times_dt = gravitational_force * (dt/body.mass);
