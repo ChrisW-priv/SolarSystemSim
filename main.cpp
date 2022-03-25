@@ -67,9 +67,9 @@ int main() {
     }
 
     //Create variables for time control
-    constexpr int dt = 30; //dt = 0.5 minute
-    constexpr unsigned long long period = YEAR; // period = 1 year
-    unsigned long long time = 0;
+    constexpr uint8_t dt = 30; //dt = 0.5 minute
+    constexpr uint64_t period = YEAR; // period = 1 year
+    uint64_t time = 0;
 
     //array of files to save body positions to
     ofstream save_files[n_bodies];
