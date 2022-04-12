@@ -112,7 +112,7 @@ struct Vector3{
 
 template<typename T>
 struct CelestialBody{
-    char name[32];
+    char name[16];
     float mass;
     Vector3<T> position;
     Vector3<T> velocity;
